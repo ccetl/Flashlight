@@ -1,0 +1,22 @@
+package ccetl.event;
+
+public abstract class Cancelable {
+    /**
+     * Stores the cancelation status.
+     */
+    private boolean canceled = false;
+
+    /**
+     * @return the cancelation status
+     */
+    public boolean isCanceled() {
+        return canceled;
+    }
+
+    /**
+     * Sets the cancelation status to true.
+     */
+    public void cancel() {
+        this.canceled = true;
+    }
+}
