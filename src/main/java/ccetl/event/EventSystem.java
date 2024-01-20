@@ -49,6 +49,10 @@ public class EventSystem implements IEventSystem {
             if (asynchronous) {
                 CountDownLatch countDownLatch = new CountDownLatch(listeners.size());
                 for (Listener listener : listeners) {
+                    if (!listener.filter(event)) {
+                        continue;
+                    }
+
                     executorService.submit(() -> {
                         listener.invoke(event);
                         countDownLatch.countDown();
@@ -63,6 +67,10 @@ public class EventSystem implements IEventSystem {
                 }
             } else {
                 for (Listener listener : listeners) {
+                    if (!listener.filter(event)) {
+                        continue;
+                    }
+
                     listener.invoke(event);
                 }
             }
@@ -71,6 +79,24 @@ public class EventSystem implements IEventSystem {
                 return ((Cancelable) event).isCanceled();
             } else {
                 return false;
+            }
+        } finally {
+            reentrantLock.unlock();
+        }
+    }
+
+    @Deprecated
+    public void postReversed(Object event) {
+        reentrantLock.lock();
+        try {
+            final List<Listener> listeners = this.listeners.get(event.getClass());
+            for (int i = listeners.size() - 1; i >= 0; i--) {
+                Listener listener = listeners.get(i);
+                if (!listener.filter(event)) {
+                    continue;
+                }
+
+                listener.invoke(event);
             }
         } finally {
             reentrantLock.unlock();
@@ -164,6 +190,17 @@ public class EventSystem implements IEventSystem {
     @Override
     public boolean deregister(Listener<?> listener) {
         return deregister(listener.getTarget(), listener);
+    }
+
+    @Override
+    public boolean hasListeners(Class<?> eventClass) {
+        reentrantLock.lock();
+        try {
+            List<Listener> listeners = this.listeners.get(eventClass);
+            return listeners != null && !listeners.isEmpty();
+        } finally {
+            reentrantLock.unlock();
+        }
     }
 
     private boolean deregister(Class<?> event, Listener<?> listener) {

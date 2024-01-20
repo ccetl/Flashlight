@@ -25,7 +25,7 @@ public class LambdaListener<E> implements Listener<E> {
     /**
      * The target event, what triggers this listener.
      */
-    private final Class<E> target;
+    private final Class<? super E> target;
     /**
      * A predicate that determines whether the listener should be invoked based on a condition.
      * If null, the listener is invoked unconditionally.
@@ -40,7 +40,7 @@ public class LambdaListener<E> implements Listener<E> {
      * @param listener The listener to be executed when the event conditions are met.
      * @param priority The priority of this listener.
      */
-    public LambdaListener(Class<E> target, @Nullable Predicate<E> filter, Consumer<E> listener, byte priority) {
+    public LambdaListener(Class<? super E> target, @Nullable Predicate<E> filter, Consumer<E> listener, byte priority) {
         this.listener = listener;
         this.priority = priority;
         this.target = target;
@@ -54,17 +54,17 @@ public class LambdaListener<E> implements Listener<E> {
      * @param listener The listener to be executed when the event conditions are met.
      * @param priority The priority of this listener.
      */
-    public LambdaListener(Class<E> target, Consumer<E> listener, byte priority) {
+    public LambdaListener(Class<? super E> target, Consumer<E> listener, byte priority) {
         this(target, null, listener, priority);
     }
 
     // Additional constructors for convenience...
 
-    public LambdaListener(Class<E> target, Consumer<E> listener) {
+    public LambdaListener(Class<? super E> target, Consumer<E> listener) {
         this(target, null, listener, DefaultPriorities.NORMAL);
     }
 
-    public LambdaListener(Class<E> target, @Nullable Predicate<E> filter, Consumer<E> listener) {
+    public LambdaListener(Class<? super E> target, @Nullable Predicate<E> filter, Consumer<E> listener) {
         this(target, filter, listener, DefaultPriorities.NORMAL);
     }
 
@@ -75,15 +75,16 @@ public class LambdaListener<E> implements Listener<E> {
      */
     @Override
     public void invoke(E event) {
-        if (filter != null && !filter.test(event)) {
-            return;
-        }
-
         listener.accept(event);
     }
 
     @Override
-    public Class<E> getTarget() {
+    public boolean filter(E event) {
+        return filter == null || filter.test(event);
+    }
+
+    @Override
+    public Class<? super E> getTarget() {
         return target;
     }
 

@@ -25,6 +25,9 @@ public class Main {
         eventSystem.register(new LambdaListener<>(TestEvent.class, event1 -> System.out.println("Hello from listener C!"), DefaultPriorities.LOW));
         eventSystem.register(new LambdaListener<>(TestEvent.class, event1 -> System.out.println("Hello from listener A!"), DefaultPriorities.HIGH));
         eventSystem.post(new TestEvent("Hello world!"));
+
+        System.out.println(eventSystem.hasListeners(TestEvent.class));
+        System.out.println(eventSystem.hasListeners(TestListener.class));
     }
 
     static class TestEvent extends Cancelable {

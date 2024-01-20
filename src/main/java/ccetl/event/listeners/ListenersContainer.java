@@ -34,7 +34,7 @@ public abstract class ListenersContainer {
     /**
      * Should enable all listeners stored. For example:
      * <pre> {@code
-     * Main.EVENT_SYSTEM.register(this)
+     * Main.EVENT_SYSTEM.register(this);
      * for (Listener<?> listener : listeners) {
      *     Main.EVENT_SYSTEM.register(listener);
      * }}</pre>
@@ -44,7 +44,7 @@ public abstract class ListenersContainer {
     /**
      * Should disable all listeners stored. For example:
      * <pre> {@code
-     * Main.EVENT_SYSTEM.deregister(this)
+     * Main.EVENT_SYSTEM.deregister(this);
      * for (Listener<?> listener : listeners) {
      *     Main.EVENT_SYSTEM.deregister(listener);
      * }}</pre>

@@ -4,7 +4,7 @@ public abstract class Cancelable {
     /**
      * Stores the cancelation status.
      */
-    private boolean canceled = false;
+    protected boolean canceled = false;
 
     /**
      * @return the cancelation status

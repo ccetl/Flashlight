@@ -4,16 +4,16 @@ import ccetl.event.DefaultPriorities;
 
 public abstract class ModuleListener<M, E> implements Listener<E> {
     public final M module;
-    private final Class<E> target;
+    private final Class<? super E> target;
     private final byte priority;
 
-    public ModuleListener(M module, Class<E> target) {
+    public ModuleListener(M module, Class<? super E> target) {
         this.module = module;
         this.target = target;
         this.priority = DefaultPriorities.NORMAL;
     }
 
-    public ModuleListener(M module, Class<E> target, byte priority) {
+    public ModuleListener(M module, Class<? super E> target, byte priority) {
         this.module = module;
         this.target = target;
         this.priority = priority;
@@ -25,7 +25,7 @@ public abstract class ModuleListener<M, E> implements Listener<E> {
     }
 
     @Override
-    public Class<E> getTarget() {
+    public Class<? super E> getTarget() {
         return target;
     }
 }

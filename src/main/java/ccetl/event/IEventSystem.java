@@ -80,4 +80,10 @@ public interface IEventSystem {
      */
     @SuppressWarnings("UnusedReturnValue")
     boolean deregister(Listener<?> listener);
+
+    /**
+     * @param eventClass what event the listeners have to listen to
+     * @return true when the event system has registered listeners for the event
+     */
+    boolean hasListeners(Class<?> eventClass);
 }

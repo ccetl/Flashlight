@@ -7,19 +7,19 @@ import ccetl.event.annotations.Nullable;
 import java.util.function.Predicate;
 
 public class Canceler<E extends Cancelable> extends LambdaListener<E> {
-    public Canceler(Class<E> target, @Nullable Predicate<E> predicate, byte priority) {
+    public Canceler(Class<? super E> target, @Nullable Predicate<E> predicate, byte priority) {
         super(target, predicate, Cancelable::cancel, priority);
     }
 
-    public Canceler(Class<E> target, Predicate<E> predicate) {
+    public Canceler(Class<? super E> target, Predicate<E> predicate) {
         this(target, predicate, DefaultPriorities.NORMAL);
     }
 
-    public Canceler(Class<E> target, byte priority) {
+    public Canceler(Class<? super E> target, byte priority) {
         this(target, null, priority);
     }
 
-    public Canceler(Class<E> target) {
+    public Canceler(Class<? super E> target) {
         this(target, null, DefaultPriorities.NORMAL);
     }
 

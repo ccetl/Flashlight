@@ -23,7 +23,7 @@ public interface Listener<E> {
      *
      * @return The target class type.
      */
-    Class<E> getTarget();
+    Class<? super E> getTarget();
 
     /**
      * Gets the priority of this listener.
@@ -32,6 +32,15 @@ public interface Listener<E> {
      */
     default byte getPriority() {
         return DefaultPriorities.NORMAL;
+    }
+
+    /**
+     * Filter the execution.
+     *
+     * @return true if the event should be executed
+     */
+    default boolean filter(E event) {
+        return true;
     }
 
     /**
