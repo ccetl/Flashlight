@@ -44,6 +44,15 @@ public interface Listener<E> {
     }
 
     /**
+     * Filter the execution.
+     *
+     * @return true if the event should be executed
+     */
+    default boolean filterType(Class<?> eventClass) {
+        return true;
+    }
+
+    /**
      * Compares the priorities of two listeners to
      * use binary search in listener lists.
      *
