@@ -1,7 +1,6 @@
 package ccetl.event.annotations;
 
 import ccetl.event.EventSystem;
-import ccetl.event.annotations.EventListener;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
