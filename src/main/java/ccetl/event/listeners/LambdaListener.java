@@ -57,9 +57,13 @@ public class LambdaListener<E> implements Listener<E> {
     public LambdaListener(Class<? super E> target, Consumer<E> listener, byte priority) {
         this(target, null, listener, priority);
     }
-
+    
     // Additional constructors for convenience...
 
+    public LambdaListener(Class<? super E> target, byte priority, Consumer<E> listener) {
+        this(target, null, listener, priority);
+    }
+    
     public LambdaListener(Class<? super E> target, Consumer<E> listener) {
         this(target, null, listener, DefaultPriorities.NORMAL);
     }
