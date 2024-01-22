@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 /**
  * Adds simple lambda functions to the event system.
+ *
  * @param <E> target event
  * @see Listener
  * @see EventSystem
@@ -40,7 +41,7 @@ public class LambdaListener<E> implements Listener<E> {
      * @param listener The listener to be executed when the event conditions are met.
      * @param priority The priority of this listener.
      */
-    public LambdaListener(Class<? super E> target, @Nullable Predicate<E> filter, Consumer<E> listener, byte priority) {
+    public LambdaListener(Class<? super E> target, @Nullable Predicate<E> filter, byte priority, Consumer<E> listener) {
         this.listener = listener;
         this.priority = priority;
         this.target = target;
@@ -54,18 +55,18 @@ public class LambdaListener<E> implements Listener<E> {
      * @param listener The listener to be executed when the event conditions are met.
      * @param priority The priority of this listener.
      */
-    public LambdaListener(Class<? super E> target, Consumer<E> listener, byte priority) {
-        this(target, null, listener, priority);
+    public LambdaListener(Class<? super E> target, byte priority, Consumer<E> listener) {
+        this(target, null, priority, listener);
     }
 
     // Additional constructors for convenience...
 
     public LambdaListener(Class<? super E> target, Consumer<E> listener) {
-        this(target, null, listener, DefaultPriorities.NORMAL);
+        this(target, null, DefaultPriorities.NORMAL, listener);
     }
 
     public LambdaListener(Class<? super E> target, @Nullable Predicate<E> filter, Consumer<E> listener) {
-        this(target, filter, listener, DefaultPriorities.NORMAL);
+        this(target, filter, DefaultPriorities.NORMAL, listener);
     }
 
     /**

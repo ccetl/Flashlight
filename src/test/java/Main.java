@@ -24,9 +24,9 @@ public class Main {
         eventSystem.shutDown();
 
         eventSystem = new EventSystem();
-        eventSystem.register(new LambdaListener<>(TestEvent.class, event1 -> System.out.println("Hello from listener B!"), DefaultPriorities.NORMAL));
-        eventSystem.register(new LambdaListener<>(TestEvent.class, event1 -> System.out.println("Hello from listener C!"), DefaultPriorities.LOW));
-        eventSystem.register(new LambdaListener<>(TestEvent.class, event1 -> System.out.println("Hello from listener A!"), DefaultPriorities.HIGH));
+        eventSystem.register(new LambdaListener<>(TestEvent.class, DefaultPriorities.NORMAL, event1 -> System.out.println("Hello from listener B!")));
+        eventSystem.register(new LambdaListener<>(TestEvent.class, DefaultPriorities.LOW, event1 -> System.out.println("Hello from listener C!")));
+        eventSystem.register(new LambdaListener<>(TestEvent.class, DefaultPriorities.HIGH, event1 -> System.out.println("Hello from listener A!")));
         eventSystem.post(new TestEvent("Hello world!"));
 
         System.out.println(eventSystem.hasListeners(TestEvent.class));
