@@ -12,13 +12,13 @@ class MethodListener<E> extends LambdaListener<E> {
     private final Method method;
 
     public MethodListener(Class<E> target, Method method, @Nullable Object provider, byte priority) {
-        super(target, event -> {
+        super(target, priority, event -> {
             try {
                 method.invoke(provider, event);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
-        }, priority);
+        });
         this.provider = provider;
         this.method = method;
     }
