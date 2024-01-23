@@ -22,7 +22,15 @@ public class EventSystem implements IEventSystem {
     /**
      * The thread pool for asynchronous execution.
      */
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ThreadPoolExecutor executorService;
+
+    public EventSystem() {
+        this(new ThreadPoolExecutor(1, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<>()));
+    }
+
+    public EventSystem(ThreadPoolExecutor executorService) {
+        this.executorService = executorService;
+    }
 
     @Override
     public boolean post(Object event) {
@@ -209,6 +217,16 @@ public class EventSystem implements IEventSystem {
 
     private boolean isNotValid(Method method) {
         return !method.isAnnotationPresent(ccetl.event.annotations.EventListener.class) || method.getParameterCount() != 1;
+    }
+
+    /**
+     * Calls {@link ThreadPoolExecutor#prestartAllCoreThreads()} to pre start all always idling threads.
+     * This can avoid lagging on the first {@link EventSystem#post}.
+     *
+     * @return the number of threads started
+     */
+    public int preStart() {
+        return executorService.prestartAllCoreThreads();
     }
 
     /**
