@@ -199,7 +199,12 @@ public class EventSystem implements IEventSystem {
 
     @Override
     public void deregisterAll(Class<?> clazz) {
-        listeners.get(clazz).clear();
+        List<Listener> listenerList = listeners.get(clazz);
+        if (listenerList == null) {
+            return;
+        }
+
+        listenerList.clear();
         listeners.remove(clazz);
     }
 
