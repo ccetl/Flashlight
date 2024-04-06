@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "maven-publish"
 }
 
 base {
@@ -12,24 +11,4 @@ java {
     withSourcesJar()
 
     sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-publishing {
-    publications {
-        //noinspection GroovyAssignabilityCheck
-        java(MavenPublication) {
-            from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/ccetl/discord-ipc"
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
 }
