@@ -82,6 +82,13 @@ public interface IEventSystem {
     boolean deregister(Listener<?> listener);
 
     /**
+     * This method will deregister all listeners for the specified event.
+     *
+     * @param clazz the class of the event
+     */
+    void deregisterAll(Class<?> clazz);
+
+    /**
      * @param eventClass what event the listeners have to listen to
      * @return true when the event system has registered listeners for the event
      */

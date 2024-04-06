@@ -16,7 +16,7 @@ import java.util.concurrent.*;
  * @see java.util.EventListener
  * @see Listener
  */
-@SuppressWarnings({"unused", "UnusedReturnValue", "rawtypes", "unchecked"})
+@SuppressWarnings({"unused", "rawtypes", "unchecked"})
 public class EventSystem implements IEventSystem {
     private final Map<Class<?>, List<Listener>> listeners = new ConcurrentHashMap<>();
     /**
@@ -195,6 +195,12 @@ public class EventSystem implements IEventSystem {
     @Override
     public boolean deregister(Listener<?> listener) {
         return deregister(listener.getTarget(), listener);
+    }
+
+    @Override
+    public void deregisterAll(Class<?> clazz) {
+        listeners.get(clazz).clear();
+        listeners.remove(clazz);
     }
 
     @Override
