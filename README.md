@@ -1,4 +1,4 @@
-# EventSystem
+# Flashlight
 
 This Java library provides a feature-rich event system implementation.
 
