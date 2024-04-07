@@ -1,8 +1,8 @@
-package ccetl.event.listeners;
+package ccetl.flashlight.listeners;
 
-import ccetl.event.DefaultPriorities;
-import ccetl.event.EventSystem;
-import ccetl.event.annotations.NotNull;
+import ccetl.flashlight.DefaultPriorities;
+import ccetl.flashlight.EventSystem;
+import ccetl.flashlight.annotations.NotNull;
 
 /**
  * Listener interface.

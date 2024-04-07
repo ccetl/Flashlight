@@ -1,7 +1,7 @@
-package ccetl.event;
+package ccetl.flashlight;
 
-import ccetl.event.annotations.Nullable;
-import ccetl.event.listeners.LambdaListener;
+import ccetl.flashlight.annotations.Nullable;
+import ccetl.flashlight.listeners.LambdaListener;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

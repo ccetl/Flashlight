@@ -1,8 +1,8 @@
-package ccetl.event.listeners;
+package ccetl.flashlight.listeners;
 
-import ccetl.event.DefaultPriorities;
-import ccetl.event.EventSystem;
-import ccetl.event.annotations.Nullable;
+import ccetl.flashlight.DefaultPriorities;
+import ccetl.flashlight.EventSystem;
+import ccetl.flashlight.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;

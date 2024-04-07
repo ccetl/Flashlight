@@ -1,4 +1,4 @@
-package ccetl.event.annotations;
+package ccetl.flashlight.annotations;
 
 import java.lang.annotation.*;
 

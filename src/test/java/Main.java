@@ -1,9 +1,9 @@
-import ccetl.event.Cancelable;
-import ccetl.event.DefaultPriorities;
-import ccetl.event.EventSystem;
-import ccetl.event.TypeEvent;
-import ccetl.event.listeners.LambdaListener;
-import ccetl.event.listeners.Listener;
+import ccetl.flashlight.Cancelable;
+import ccetl.flashlight.DefaultPriorities;
+import ccetl.flashlight.EventSystem;
+import ccetl.flashlight.TypeEvent;
+import ccetl.flashlight.listeners.LambdaListener;
+import ccetl.flashlight.listeners.Listener;
 
 import java.util.List;
 

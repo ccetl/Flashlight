@@ -1,6 +1,6 @@
-package ccetl.event;
+package ccetl.flashlight;
 
-import ccetl.event.listeners.Listener;
+import ccetl.flashlight.listeners.Listener;
 
 import java.lang.reflect.Method;
 

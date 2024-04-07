@@ -1,7 +1,8 @@
-package ccetl.event;
+package ccetl.flashlight;
 
-import ccetl.event.annotations.ListenerPriority;
-import ccetl.event.listeners.Listener;
+import ccetl.flashlight.annotations.EventListener;
+import ccetl.flashlight.annotations.ListenerPriority;
+import ccetl.flashlight.listeners.Listener;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -227,7 +228,7 @@ public class EventSystem implements IEventSystem {
     }
 
     private boolean isNotValid(Method method) {
-        return !method.isAnnotationPresent(ccetl.event.annotations.EventListener.class) || method.getParameterCount() != 1;
+        return !method.isAnnotationPresent(EventListener.class) || method.getParameterCount() != 1;
     }
 
     /**

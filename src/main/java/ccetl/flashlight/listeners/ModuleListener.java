@@ -1,6 +1,6 @@
-package ccetl.event.listeners;
+package ccetl.flashlight.listeners;
 
-import ccetl.event.DefaultPriorities;
+import ccetl.flashlight.DefaultPriorities;
 
 public abstract class ModuleListener<M, E> implements Listener<E> {
     public final M module;
