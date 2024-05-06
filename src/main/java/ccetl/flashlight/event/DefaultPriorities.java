@@ -1,4 +1,4 @@
-package ccetl.flashlight;
+package ccetl.flashlight.event;
 
 public class DefaultPriorities {
     public static final byte HIGHEST = 127;

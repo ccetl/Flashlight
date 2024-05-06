@@ -1,4 +1,4 @@
-package ccetl.flashlight;
+package ccetl.flashlight.event;
 
 public interface TypeEvent {
     /**

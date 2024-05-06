@@ -1,4 +1,4 @@
-package ccetl.flashlight;
+package ccetl.flashlight.event;
 
 public class PersistentCancelable extends Cancelable {
     /**

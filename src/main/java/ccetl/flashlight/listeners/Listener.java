@@ -1,8 +1,8 @@
 package ccetl.flashlight.listeners;
 
-import ccetl.flashlight.DefaultPriorities;
-import ccetl.flashlight.EventSystem;
 import ccetl.flashlight.annotations.NotNull;
+import ccetl.flashlight.dispatcher.EventSystem;
+import ccetl.flashlight.event.DefaultPriorities;
 
 /**
  * Listener interface.
@@ -37,7 +37,7 @@ public interface Listener<E> {
     /**
      * Filter the execution.
      *
-     * @return true if the event should be executed
+     * @return true if the listener should be executed
      */
     default boolean filter(E event) {
         return true;
@@ -46,7 +46,7 @@ public interface Listener<E> {
     /**
      * Filter the execution.
      *
-     * @return true if the event should be executed
+     * @return true if the listener should be executed
      */
     default boolean filterType(Class<?> eventClass) {
         return true;

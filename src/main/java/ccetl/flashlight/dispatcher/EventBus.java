@@ -1,5 +1,6 @@
-package ccetl.flashlight;
+package ccetl.flashlight.dispatcher;
 
+import ccetl.flashlight.event.Cancelable;
 import ccetl.flashlight.listeners.Listener;
 
 import java.lang.reflect.Method;

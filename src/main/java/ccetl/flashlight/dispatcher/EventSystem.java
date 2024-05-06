@@ -1,7 +1,10 @@
-package ccetl.flashlight;
+package ccetl.flashlight.dispatcher;
 
 import ccetl.flashlight.annotations.EventListener;
 import ccetl.flashlight.annotations.ListenerPriority;
+import ccetl.flashlight.event.Cancelable;
+import ccetl.flashlight.event.DefaultPriorities;
+import ccetl.flashlight.event.TypeEvent;
 import ccetl.flashlight.listeners.Listener;
 
 import java.lang.reflect.Method;
@@ -17,7 +20,7 @@ import java.util.concurrent.*;
  * @see java.util.EventListener
  * @see Listener
  */
-@SuppressWarnings({"unused", "rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EventSystem implements IEventSystem {
     private final Map<Class<?>, List<Listener>> listeners = new ConcurrentHashMap<>();
     /**

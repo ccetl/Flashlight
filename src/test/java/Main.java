@@ -1,7 +1,7 @@
-import ccetl.flashlight.Cancelable;
-import ccetl.flashlight.DefaultPriorities;
-import ccetl.flashlight.EventSystem;
-import ccetl.flashlight.TypeEvent;
+import ccetl.flashlight.dispatcher.EventSystem;
+import ccetl.flashlight.event.Cancelable;
+import ccetl.flashlight.event.DefaultPriorities;
+import ccetl.flashlight.event.TypeEvent;
 import ccetl.flashlight.listeners.LambdaListener;
 import ccetl.flashlight.listeners.Listener;
 
@@ -31,6 +31,7 @@ public class Main {
 
         System.out.println(eventSystem.hasListeners(TestEvent.class));
         System.out.println(eventSystem.hasListeners(TestListener.class));
+        eventSystem.scan(System.out::println, (eventClass, listener) -> System.out.println("\\- " + listener.getClass()));
 
         eventSystem = new EventSystem();
         Human<Organ> humanA = new Human<>(new Brain());

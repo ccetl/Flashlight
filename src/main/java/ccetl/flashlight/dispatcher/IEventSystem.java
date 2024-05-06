@@ -1,4 +1,4 @@
-package ccetl.flashlight;
+package ccetl.flashlight.dispatcher;
 
 import ccetl.flashlight.listeners.Listener;
 
@@ -71,14 +71,12 @@ public interface IEventSystem {
      * @param provider target object
      * @return true if the method was present and got removed
      */
-    @SuppressWarnings("UnusedReturnValue")
     boolean deregister(Method method, Object provider);
 
     /**
      * @param listener target listener
      * @return true if the method was present and got removed
      */
-    @SuppressWarnings("UnusedReturnValue")
     boolean deregister(Listener<?> listener);
 
     /**

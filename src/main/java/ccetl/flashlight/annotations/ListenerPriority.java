@@ -1,6 +1,6 @@
 package ccetl.flashlight.annotations;
 
-import ccetl.flashlight.EventSystem;
+import ccetl.flashlight.dispatcher.EventSystem;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
