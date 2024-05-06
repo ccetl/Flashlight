@@ -1,8 +1,11 @@
 package ccetl.flashlight.dispatcher;
 
+import ccetl.flashlight.annotations.Nullable;
 import ccetl.flashlight.listeners.Listener;
 
 import java.lang.reflect.Method;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public interface IEventSystem {
     /**
@@ -91,4 +94,18 @@ public interface IEventSystem {
      * @return true when the event system has registered listeners for the event
      */
     boolean hasListeners(Class<?> eventClass);
+
+    /**
+     * Scans through all listeners.
+     * <p>
+     * The order is as following:
+     * First, the event classes known to the event system are delivered to the {@code eventClassScanner}.
+     * Then, all listeners are delivered to the {@code listenerScanner}.
+     * This repeats for all events.
+     *
+     * @param eventClassScanner A consumer to be invoked with each event class known to the event system. Can be {@code null}.
+     * @param listenerScanner   A consumer to be invoked with each event class-listener pair encountered during scanning. Can be {@code null}.
+     */
+    @SuppressWarnings("rawtypes")
+    void scan(@Nullable Consumer<Class<?>> eventClassScanner, @Nullable BiConsumer<Class<?>, Listener> listenerScanner);
 }

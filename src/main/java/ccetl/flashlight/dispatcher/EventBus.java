@@ -1,5 +1,6 @@
 package ccetl.flashlight.dispatcher;
 
+import ccetl.flashlight.annotations.Nullable;
 import ccetl.flashlight.event.Cancelable;
 import ccetl.flashlight.listeners.Listener;
 
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Synchronous-only implementation; Doesn't support filters, types and annotations.
@@ -100,5 +103,10 @@ public class EventBus implements IEventSystem {
     public boolean hasListeners(Class<?> eventClass) {
         List<Listener> listeners = this.listeners.get(eventClass);
         return listeners != null && !listeners.isEmpty();
+    }
+
+    @Override
+    public void scan(@Nullable Consumer<Class<?>> eventClassScanner, @Nullable BiConsumer<Class<?>, Listener> listenerScanner) {
+        Scanner.scanListeners(listeners, eventClassScanner, listenerScanner);
     }
 }

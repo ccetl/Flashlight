@@ -2,6 +2,7 @@ package ccetl.flashlight.dispatcher;
 
 import ccetl.flashlight.annotations.EventListener;
 import ccetl.flashlight.annotations.ListenerPriority;
+import ccetl.flashlight.annotations.Nullable;
 import ccetl.flashlight.event.Cancelable;
 import ccetl.flashlight.event.DefaultPriorities;
 import ccetl.flashlight.event.TypeEvent;
@@ -12,6 +13,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * An event system.
@@ -216,6 +219,11 @@ public class EventSystem implements IEventSystem {
     public boolean hasListeners(Class<?> eventClass) {
         List<Listener> listeners = this.listeners.get(eventClass);
         return listeners != null && !listeners.isEmpty();
+    }
+
+    @Override
+    public void scan(@Nullable Consumer<Class<?>> eventClassScanner, @Nullable BiConsumer<Class<?>, Listener> listenerScanner) {
+        Scanner.scanListeners(listeners, eventClassScanner, listenerScanner);
     }
 
     private boolean deregister(Class<?> event, Listener<?> listener) {
