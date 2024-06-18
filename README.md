@@ -11,7 +11,7 @@ To integrate the event system into your project, follow these steps:
    </pre>
 2. Add the dependency to your <code>build.gradle</code> file under the <code>dependencies</code> section:
    <pre>
-   implementation 'com.github.ccetl:event-system:version'
+   implementation 'com.github.ccetl:flashlight:version'
    </pre>
 Replace <code>version</code> with the desired version of the project. <br>
 The latest version can be found here: <br>
