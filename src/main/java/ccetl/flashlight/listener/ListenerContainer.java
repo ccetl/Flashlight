@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class ListenersContainer {
+public abstract class ListenerContainer {
     private final List<Listener<?>> listeners = new ArrayList<>();
 
     public <T> Listener<T> register(Listener<T> listener) {
