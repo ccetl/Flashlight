@@ -1,7 +1,7 @@
 package ccetl.flashlight.dispatcher;
 
-import ccetl.flashlight.annotations.Nullable;
-import ccetl.flashlight.listeners.Listener;
+import ccetl.flashlight.annotation.Nullable;
+import ccetl.flashlight.listener.Listener;
 
 import java.lang.reflect.Method;
 import java.util.function.BiConsumer;

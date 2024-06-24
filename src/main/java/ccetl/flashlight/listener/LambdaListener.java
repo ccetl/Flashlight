@@ -1,6 +1,6 @@
-package ccetl.flashlight.listeners;
+package ccetl.flashlight.listener;
 
-import ccetl.flashlight.annotations.Nullable;
+import ccetl.flashlight.annotation.Nullable;
 import ccetl.flashlight.dispatcher.EventSystem;
 import ccetl.flashlight.event.DefaultPriorities;
 

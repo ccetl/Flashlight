@@ -1,12 +1,12 @@
 package ccetl.flashlight.dispatcher;
 
-import ccetl.flashlight.annotations.EventListener;
-import ccetl.flashlight.annotations.ListenerPriority;
-import ccetl.flashlight.annotations.Nullable;
+import ccetl.flashlight.annotation.EventListener;
+import ccetl.flashlight.annotation.ListenerPriority;
+import ccetl.flashlight.annotation.Nullable;
 import ccetl.flashlight.event.Cancelable;
 import ccetl.flashlight.event.DefaultPriorities;
 import ccetl.flashlight.event.TypeEvent;
-import ccetl.flashlight.listeners.Listener;
+import ccetl.flashlight.listener.Listener;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -170,7 +170,7 @@ public class EventSystem implements IEventSystem {
         if (insertionIndex < 0) {
             insertionIndex = Math.abs(insertionIndex) - 1;
         } //we could loop here until we have the last position on duplicated listener priorities
-        //but I consider it as useless task since it changes nothing and could take some time if we have a lot of listeners
+        //but I consider it as a useless task since it changes nothing and could take some time if we have a lot of listeners
         //of one priority
         pairs.add(insertionIndex, listener);
     }

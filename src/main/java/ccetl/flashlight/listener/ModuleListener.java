@@ -1,4 +1,4 @@
-package ccetl.flashlight.listeners;
+package ccetl.flashlight.listener;
 
 import ccetl.flashlight.event.DefaultPriorities;
 

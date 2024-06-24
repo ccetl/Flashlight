@@ -1,4 +1,4 @@
-package ccetl.flashlight.annotations;
+package ccetl.flashlight.annotation;
 
 import ccetl.flashlight.dispatcher.EventSystem;
 
@@ -8,11 +8,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks event listener functions.
- * @see ListenerPriority
+ * Indicates the priority of the method (optional, 0 by default).
+ * @see EventListener
  * @see EventSystem
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface EventListener {
+public @interface ListenerPriority {
+    byte priority();
 }

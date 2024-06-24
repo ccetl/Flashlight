@@ -1,4 +1,4 @@
-package ccetl.flashlight.listeners;
+package ccetl.flashlight.listener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,9 @@ import java.util.Objects;
 public abstract class ListenersContainer {
     private final List<Listener<?>> listeners = new ArrayList<>();
 
-    public void register(Listener<?> listener) {
+    public <T> Listener<T> register(Listener<T> listener) {
         listeners.add(listener);
+        return listener;
     }
 
     public void register(Listener<?>... listeners) {
@@ -17,8 +18,9 @@ public abstract class ListenersContainer {
         }
     }
 
-    public void deregister(Listener<?> listener) {
+    public <T> Listener<T> deregister(Listener<T> listener) {
         listeners.remove(listener);
+        return listener;
     }
 
     public void deregister(Listener<?>... listeners) {
