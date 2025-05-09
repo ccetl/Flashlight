@@ -11,8 +11,10 @@ import ccetl.flashlight.event.DefaultPriorities;
  * @see EventSystem
  */
 public interface Listener<E> {
+
     /**
      * Executes the listener's code.
+     * The invocation should never throw an exception.
      *
      * @param event the event what triggered the listener's execution
      */
@@ -62,4 +64,5 @@ public interface Listener<E> {
     default int compareTo(@NotNull Listener<?> o) {
         return Byte.compare(o.getPriority(), getPriority());
     }
+
 }

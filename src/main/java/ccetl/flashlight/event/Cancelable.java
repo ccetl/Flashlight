@@ -1,6 +1,7 @@
 package ccetl.flashlight.event;
 
 public abstract class Cancelable {
+
     /**
      * Stores the cancelation status.
      */
@@ -19,4 +20,5 @@ public abstract class Cancelable {
     public void cancel() {
         this.canceled = true;
     }
+
 }

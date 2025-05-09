@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class ListenerContainer {
+
     private final List<Listener<?>> listeners = new ArrayList<>();
 
     public <T> Listener<T> register(Listener<T> listener) {
@@ -52,4 +53,5 @@ public abstract class ListenerContainer {
      * }}</pre>
      */
     public abstract void disableListeners();
+
 }

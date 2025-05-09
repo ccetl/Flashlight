@@ -15,6 +15,7 @@ import java.util.function.Predicate;
  * @see EventSystem
  */
 public class LambdaListener<E> implements Listener<E> {
+
     /**
      * The underlying listener to be executed when the event conditions are met.
      */
@@ -93,4 +94,5 @@ public class LambdaListener<E> implements Listener<E> {
     public byte getPriority() {
         return priority;
     }
+
 }

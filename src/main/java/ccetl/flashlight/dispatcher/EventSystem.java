@@ -1,6 +1,7 @@
 package ccetl.flashlight.dispatcher;
 
 import ccetl.flashlight.annotation.EventListener;
+import ccetl.flashlight.annotation.EventType;
 import ccetl.flashlight.annotation.ListenerPriority;
 import ccetl.flashlight.annotation.Nullable;
 import ccetl.flashlight.event.Cancelable;
@@ -25,6 +26,7 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class EventSystem implements IEventSystem {
+
     private final Map<Class<?>, List<Listener>> listeners = new ConcurrentHashMap<>();
     /**
      * The thread pool for asynchronous execution.
@@ -46,19 +48,19 @@ public class EventSystem implements IEventSystem {
 
     @Override
     public boolean post(Object event, boolean asynchronous, boolean await) {
-        final List<Listener> listeners = this.listeners.get(event.getClass());
-        if (listeners == null || listeners.isEmpty()) {
+        final List<Listener> eventListeners = listeners.get(event.getClass());
+        if (eventListeners == null || eventListeners.isEmpty()) {
             return false;
         }
 
         boolean type = event instanceof TypeEvent;
 
         if (asynchronous) {
-            if (postAsynchronous(event, await, listeners, type)) {
+            if (postAsynchronous(event, await, eventListeners, type)) {
                 return false;
             }
         } else {
-            postSynchronous(event, listeners, type);
+            postSynchronous(event, eventListeners, type);
         }
 
         if (event instanceof Cancelable) {
@@ -102,16 +104,24 @@ public class EventSystem implements IEventSystem {
         return false;
     }
 
+    /**
+     * Will post the event but in reversed order.
+     * That means events with a lower priority will receive the event earlier than those with high priority.
+     *
+     * @param event The event to post.
+     * @deprecated This method should be avoided as it leads to a confusing order. It's included to create an easier
+     *             transition from other event systems.
+     */
     @Deprecated
     public void postReversed(Object event) {
-        final List<Listener> listeners = this.listeners.get(event.getClass());
-        if (listeners == null || listeners.isEmpty()) {
+        final List<Listener> eventListeners = listeners.get(event.getClass());
+        if (eventListeners == null || eventListeners.isEmpty()) {
             return;
         }
 
         boolean type = event instanceof TypeEvent;
-        for (int i = listeners.size() - 1; i >= 0; i--) {
-            Listener listener = listeners.get(i);
+        for (int i = eventListeners.size() - 1; i >= 0; i--) {
+            Listener listener = eventListeners.get(i);
             if (notFiltered(event, listener, type)) {
                 continue;
             }
@@ -160,10 +170,10 @@ public class EventSystem implements IEventSystem {
 
     @Override
     public void register(Listener<?> listener) {
-        register(listener, listener.getTarget(), listener.getPriority());
+        register(listener, listener.getTarget());
     }
 
-    private void register(Listener<?> listener, Class<?> target, byte priority) {
+    private void register(Listener<?> listener, Class<?> target) {
         List<Listener> pairs = listeners.computeIfAbsent(target, e -> new CopyOnWriteArrayList<>());
 
         if (pairs.isEmpty()) {
@@ -173,10 +183,10 @@ public class EventSystem implements IEventSystem {
 
         int insertionIndex = Collections.binarySearch(pairs, listener, Listener::compareTo);
         if (insertionIndex < 0) {
-            insertionIndex = Math.abs(insertionIndex) - 1;
-        } //we could loop here until we have the last position on duplicated listener priorities
-        //but I consider it as a useless task since it changes nothing and could take some time if we have a lot of listeners
-        //of one priority
+            insertionIndex = ~insertionIndex;
+        } // we could loop here until we have the last position on duplicated listener priorities
+        // but I consider it as a useless task since it changes nothing and could take some time if we have a lot of listeners
+        // of one priority
         pairs.add(insertionIndex, listener);
     }
 
@@ -222,8 +232,8 @@ public class EventSystem implements IEventSystem {
 
     @Override
     public boolean hasListeners(Class<?> eventClass) {
-        List<Listener> listeners = this.listeners.get(eventClass);
-        return listeners != null && !listeners.isEmpty();
+        List<Listener> eventListeners = listeners.get(eventClass);
+        return eventListeners != null && !eventListeners.isEmpty();
     }
 
     @Override
@@ -265,4 +275,5 @@ public class EventSystem implements IEventSystem {
     public List<Runnable> shutDown() {
         return executorService.shutdownNow();
     }
+
 }

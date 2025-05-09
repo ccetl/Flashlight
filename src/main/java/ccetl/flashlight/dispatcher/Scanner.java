@@ -10,6 +10,10 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("rawtypes")
 class Scanner {
+
+    private Scanner() {
+    }
+
     protected static void scanListeners(Map<Class<?>, List<Listener>> listeners, @Nullable Consumer<Class<?>> eventClass, @Nullable BiConsumer<Class<?>, Listener> scanner) {
         if (eventClass == null && scanner == null) {
             return;
@@ -34,4 +38,5 @@ class Scanner {
             scanner.accept(eventClass, listener);
         }
     }
+
 }

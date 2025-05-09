@@ -8,6 +8,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public interface IEventSystem {
+
     /**
      * This will execute the listeners synchronously.
      *
@@ -51,6 +52,10 @@ public interface IEventSystem {
     boolean register(Method method, Object provider);
 
     /**
+     * Registers a listener.
+     * <p>
+     * This method is not thread safe.
+     *
      * @param listener target listener
      */
     void register(Listener<?> listener);
@@ -103,9 +108,12 @@ public interface IEventSystem {
      * Then, all listeners are delivered to the {@code listenerScanner}.
      * This repeats for all events.
      *
-     * @param eventClassScanner A consumer to be invoked with each event class known to the event system. Can be {@code null}.
-     * @param listenerScanner   A consumer to be invoked with each event class-listener pair encountered during scanning. Can be {@code null}.
+     * @param eventClassScanner A consumer to be invoked with each event-class known to the event system.
+     *                         Can be {@code null}.
+     * @param listenerScanner   A consumer to be invoked with each event-class listener pair encountered
+     *                         during scanning. Can be {@code null}.
      */
     @SuppressWarnings("rawtypes")
     void scan(@Nullable Consumer<Class<?>> eventClassScanner, @Nullable BiConsumer<Class<?>, Listener> listenerScanner);
+
 }

@@ -3,6 +3,7 @@ package ccetl.flashlight.listener;
 import ccetl.flashlight.event.DefaultPriorities;
 
 public abstract class ModuleListener<M, E> implements Listener<E> {
+
     public final M module;
     private final Class<? super E> target;
     private final byte priority;
@@ -28,4 +29,5 @@ public abstract class ModuleListener<M, E> implements Listener<E> {
     public Class<? super E> getTarget() {
         return target;
     }
+
 }

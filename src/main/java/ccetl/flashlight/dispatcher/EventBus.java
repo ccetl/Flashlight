@@ -20,6 +20,7 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class EventBus implements IEventSystem {
+
     private final Map<Class<?>, List<Listener>> listeners = new ConcurrentHashMap<>();
 
     @Override
@@ -65,7 +66,7 @@ public class EventBus implements IEventSystem {
         List<Listener> pairs = listeners.computeIfAbsent(listener.getTarget(), e -> new CopyOnWriteArrayList<>());
         int insertionIndex = Collections.binarySearch(pairs, listener, Listener::compareTo);
         if (insertionIndex < 0) {
-            insertionIndex = Math.abs(insertionIndex) - 1;
+            insertionIndex = ~insertionIndex;
         }
         pairs.add(insertionIndex, listener);
     }
@@ -109,4 +110,5 @@ public class EventBus implements IEventSystem {
     public void scan(@Nullable Consumer<Class<?>> eventClassScanner, @Nullable BiConsumer<Class<?>, Listener> listenerScanner) {
         Scanner.scanListeners(listeners, eventClassScanner, listenerScanner);
     }
+
 }

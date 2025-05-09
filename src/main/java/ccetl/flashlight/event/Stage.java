@@ -1,6 +1,7 @@
 package ccetl.flashlight.event;
 
 public enum Stage {
+
     PRE("Pre"),
     POST("Post");
 
@@ -14,4 +15,5 @@ public enum Stage {
     public String toString() {
         return name;
     }
+
 }

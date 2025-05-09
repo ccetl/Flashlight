@@ -7,6 +7,7 @@ import ccetl.flashlight.event.DefaultPriorities;
 import java.util.function.Predicate;
 
 public class Canceler<E extends Cancelable> extends LambdaListener<E> {
+
     public Canceler(Class<? super E> target, byte priority, @Nullable Predicate<E> predicate) {
         super(target, predicate, priority, Cancelable::cancel);
     }
@@ -31,4 +32,5 @@ public class Canceler<E extends Cancelable> extends LambdaListener<E> {
 
         super.invoke(event);
     }
+
 }
