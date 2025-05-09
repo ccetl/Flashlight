@@ -149,7 +149,12 @@ public class EventSystem implements IEventSystem {
             priority = method.getAnnotation(ListenerPriority.class).priority();
         }
 
-        register(new MethodListener<>(eventClass, method, provider, priority), eventClass, priority);
+        Class<?> type = null;
+        if (method.isAnnotationPresent(EventType.class)) {
+            type = method.getAnnotation(EventType.class).typeFilter();
+        }
+
+        register(new MethodListener<>(eventClass, method, provider, priority, type), eventClass);
         return true;
     }
 
@@ -196,7 +201,7 @@ public class EventSystem implements IEventSystem {
         }
 
         Class<?> eventClass = method.getParameterTypes()[0];
-        return deregister(eventClass, new MethodListener<>(eventClass, method, provider, DefaultPriorities.NORMAL));
+        return deregister(eventClass, new MethodListener<>(eventClass, method, provider, DefaultPriorities.NORMAL, null));
     }
 
     @Override

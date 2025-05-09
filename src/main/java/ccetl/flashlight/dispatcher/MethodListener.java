@@ -8,10 +8,12 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 class MethodListener<E> extends LambdaListener<E> {
+
     private final Object provider;
     private final Method method;
+    private final Class<?> type;
 
-    public MethodListener(Class<E> target, Method method, @Nullable Object provider, byte priority) {
+    public MethodListener(Class<E> target, Method method, @Nullable Object provider, byte priority, @Nullable Class<?> type) {
         super(target, priority, event -> {
             try {
                 method.invoke(provider, event);
@@ -21,6 +23,12 @@ class MethodListener<E> extends LambdaListener<E> {
         });
         this.provider = provider;
         this.method = method;
+        this.type = type;
+    }
+
+    @Override
+    public boolean filterType(Class<?> eventClass) {
+        return type == null || eventClass == type;
     }
 
     @Override
@@ -40,4 +48,5 @@ class MethodListener<E> extends LambdaListener<E> {
         result = 31 * result + method.hashCode();
         return result;
     }
+
 }
